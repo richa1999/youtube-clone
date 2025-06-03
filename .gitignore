@@ -8,7 +8,7 @@
 # testing
 /coverage
 
-/src/utils/constants.js
+.env
 
 # production
 /build
