@@ -11,22 +11,22 @@ const list = [
   "Songs",
   "Gaming",
   "Movies",
-  "Coding",
-  "Songs",
-  "Gaming",
-  "Movies",
-  "Songs",
-  "Gaming",
-  "Movies",
+  "Vlogs",
+  "Podcasts",
+  "Reviews",
+  "Tech",
+  "Travel",
+  "Comedy",
+  "DIY",
 ];
 
 const ButtonList = () => {
   return (
-    <div className="flex w-full pl-5">
-      <div className="flex overflow-x-auto scrollbar-hide">
-        {list.map((item, index) => {
-          return <Button key={index} name={item} />;
-        })}
+    <div className="w-full bg-white px-4 py-2 shadow-sm">
+      <div className="flex overflow-x-auto gap-3 no-scrollbar">
+        {list.map((item, index) => (
+          <Button key={index} name={item} />
+        ))}
       </div>
     </div>
   );

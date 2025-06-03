@@ -11,8 +11,7 @@ const LiveChat = () => {
   const messages = useSelector((store) => store.chat.message);
 
   useEffect(() => {
-    // api polling
-    const i = setInterval(() => {
+    const intervalId = setInterval(() => {
       dispatch(
         addMessage({
           name: generateName(),
@@ -22,22 +21,23 @@ const LiveChat = () => {
     }, 500);
 
     return () => {
-      clearInterval(i);
+      clearInterval(intervalId);
     };
   }, []);
+
   return (
-    <div>
-      <div className="h-[550px] border border-black ml-2 p-2 bg-slate-100 rounded-lg overflow-y-scroll flex flex-col-reverse">
+    <div className="w-full max-w-2xl mx-auto mt-4">
+      <div className="h-[550px] border border-gray-300 ml-2 p-4 bg-slate-100 rounded-lg overflow-y-scroll flex flex-col-reverse shadow-md">
         {messages &&
           messages.map((c, index) => (
             <ChatMessage key={index} name={c.name} message={c.message} />
           ))}
       </div>
+
       <form
-        className="w-full p-2 ml-2 border border-black"
+        className="flex items-center gap-2 mt-4 ml-2"
         onSubmit={(e) => {
           e.preventDefault();
-          console.log("ON FORM SUBMIT", liveMessage);
           dispatch(
             addMessage({
               name: "You",
@@ -49,12 +49,15 @@ const LiveChat = () => {
       >
         <input
           type="text"
-          placeholder="Type your message here"
-          className="p-2 w-96"
+          placeholder="Type your message..."
+          className="p-2 flex-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           value={liveMessage}
           onChange={(e) => setLiveMessage(e.target.value)}
         />
-        <button className="bg-blue-500 text-white p-2 ml-2 rounded-lg">
+        <button
+          type="submit"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-md transition"
+        >
           Send
         </button>
       </form>

@@ -8,12 +8,22 @@ const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
   useEffect(() => {
     getVideos();
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleScroll = () => {
+    if(window.scrollY + window.innerHeight > document.body.scrollHeight){
+      getVideos();
+    }
+  }
 
   const getVideos = async () => {
     const data = await fetch(YOUTUBE_VIDEOS_API);
     const json = await data.json();
-    setVideos(json.items);
+    setVideos((videos) => [...videos, ...json.items]);
   };
 
   return (
